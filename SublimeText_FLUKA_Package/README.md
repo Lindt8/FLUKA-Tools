@@ -1,6 +1,6 @@
 # Sublime Text FLUKA package
 
-This package provides a FLUKA-aware editing environment in Sublime Text, designed for fixed-format 10-character field inputs. It combines syntax highlighting, visual column guides, and context-sensitive editing commands to reduce alignment errors and speed up input construction.
+This package provides a FLUKA-aware editing environment in [Sublime Text](https://www.sublimetext.com/), designed for fixed-format 10-character field inputs. It combines syntax highlighting, visual column guides, and context-sensitive editing commands to reduce alignment errors and speed up input construction.
 
 ---
 
