@@ -1,0 +1,77 @@
+%YAML 1.2
+---
+name: FLUKA
+file_extensions:
+  - inp
+  - fluka
+  - geo
+scope: source.fluka
+version: 2
+
+variables:
+  number: '(?x)[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[EeDd][+-]?\d+)?'
+
+contexts:
+  main:
+    # FLUKA comments are strict: '*' in column 1 starts a comment line.
+    - match: '^\*.*$'
+      scope: comment.line.asterisk.fluka
+
+    # Flag likely fixed-format mistake: first token exceeds the 10-character WHAT/card field.
+    - match: '^(?!\*)(\S{11,})'
+      captures:
+        1: invalid.illegal.field-overflow.fluka
+
+    # Block delimiters / run control
+    - match: '(?i)\b(?:GEOBEGIN|GEOEND|START|STOP|END)\b'
+      scope: keyword.control.fluka
+
+    # Preprocessor and transform pseudo-cards
+    - match: '(?i)\b(?:\$start_transform|\$start_translat|\$end_transform|\$end_translat|define|endif|elif|else|if)\b'
+      scope: meta.preprocessor.fluka keyword.control.preprocessor.fluka
+
+    # Defaults presets
+    - match: '(?i)\b(?:PRECISION|SHIELDING|CALORIME|EET/TRAN|EM\-CASCA|HADROTHE|NEUTRONS|NEW\-DEFA|PRECISIO|SHIELDIN|DAMAGE|ICARUS)\b'
+      scope: constant.language.defaults.fluka
+
+    # Scoring / tally cards
+    - match: '(?i)\b(?:AUXSCORE|DCYSCORE|DCYTIMES|EVENTBIN|EVENTDAT|IRRPROFI|RADDECAY|RESNUCLE|ROTPRBIN|TCQUENCH|TPSSCORE|USERDUMP|USERWEIG|USRTRACK|USRYIELD|USRCOLL|DETECT|USRBDX|USRBIN|SCORE)\b'
+      scope: support.function.scoring.fluka
+
+    # Material cards and predefined materials/elements
+    - match: '(?i)\b(?:njendfb8r0|ASSIGNMAT|ALUMINUM|ASSIGNMA|BERYLLIU|BLCKHOLE|BORON\-10|BORON\-11|CHLORINE|CHROMIUM|COMPOUND|CORRFACT|DEUTERIU|GRAPHITE|HYDROG\-1|HYDROGEN|LOW\-PWXS|MAGNESIU|MANGANES|MAT\-PROP|MATERIAL|MOLYBDEN|NEODYMIU|NITROGEN|OPT\-PROP|OXYGE\-16|POLYETHY|POTASSIU|SILIC\-28|STERNHEI|TANTALUM|TITANIUM|TSL\-PWXS|TUNGSTEN|VANADIUM|endfb8r0|CALCIUM|LOW\-MAT|MERCURY|NIOBIUM|PHOSPHO|SILICON|CARBON|COBALT|COPPER|HELIUM|NICKEL|OXYGEN|SILVER|SODIUM|SULFUR|VACUUM|56\-FE|ARGON|BORON|WATER|GOLD|IRON|LEAD|ZINC|TIN)\b'
+      scope: support.type.material.fluka
+
+    # Geometry body mnemonics
+    - match: '(?i)\b(?:ARB|BOX|ELL|PLA|QUA|RAW|RCC|REC|RPP|SPH|TRC|WED|XCC|XEC|XYP|XZP|YCC|YEC|YZP|ZCC|ZEC)\b'
+      scope: entity.name.type.geometry-body.fluka
+
+    # Particle and scoring quantity names
+    - match: '(?i)\b(?:4\-HELIUM|ALL\-PART|ANNIHRST|BEAMPART|DOSAVLET|E\+E\-GAMM|ELECTRON|EM\-ENRGY|HAD\-CHAR|HEAVYION|HVY\-IONS|LGH\-IONS|OPTIPHOT|POSITRON|SQBETA\-D|ALPHA\-D|DOSE\-EQ|DPA\-SCO|ISOTOPE|NEUTRON|ENERGY|PHOTON|PROTON|MUON\+|MUON\-|MUONS|PIONS|DOSE)\b'
+      scope: constant.language.particle.fluka
+
+    # Fluence-to-dose conversion sets
+    - match: '(?i)\b(?:EAP116|EIS116|EPA116|AMB74|AMBDS|AMBGS|EAP74|EAPMP|ERT74|ERTMP|EWT74|EWTMP)\b'
+      scope: constant.other.fluence-to-dose.fluka
+
+    # Fork-specific cards/options from the source Emacs mode
+    - match: '(?i)\b(?:SYRASTEP|PROFILE)\b'
+      scope: support.constant.cern-fluka.fluka
+    - match: '(?i)\b(?:BMAX\-REG|DELAYNEU|INVCOMPT|N\-REFLEC|NIEL\-PFN|POINTREG|PWXSTEMP|RUNGKUTT|SYNCROFF|SYPRONLY|USRPOINT|X\-REFLEC|SYNCRAD|SYNCRON)\b'
+      scope: support.constant.infn-fluka.fluka
+
+    # General FLUKA cards and options
+    - match: '(?i)\b(?:EMXPTRANS|RANDOMIZE|BEAMAXES|BEAMSPOT|BIOTOBIN|CHARMDEC|COALESCE|COMBNAME|DEFAULTS|DELTARAY|DPA\-ENER|DPMTHRES|ELCFIELD|ELECTNUC|ELPO\-THR|EM\-DISSO|EMF\-BIAS|EMFF\-OFF|EVAPORAT|EVENTYPE|EXPTRANS|FLUKAFIX|GCR\-IONF|HI\-PROPE|INFLDCAY|IONBRPAI|IONFLUCT|IONSPLIT|IONTRANS|LAM\-BIAS|LAMBBREM|LOW\-BIAS|LOW\-DOWN|LOW\-NEUT|MCSTHRES|MGNFIELD|MUMUPAIR|MUPHOTON|NEGATIVE|NEUTRINO|OPT\-PROD|PAIRBREM|PART\-THR|PEATHRES|PHO2\-THR|PHOT\-THR|PHOTONUC|PLOTGEOM|POLARIZA|PROD\-CUT|QMDTHRES|QUASI\-EL|RAD\-BIOL|RANDOMIZ|ROT\-DEFI|SPECSOUR|SPORTRAN|SPOTBEAM|STEPSIZE|SYNC\-RAD|SYNC\-RAS|SYNC\-RDN|SYNC\-RDS|THRESHOL|TIME\-CUT|USERDIRE|USRGCALL|USRICALL|USROCALL|WW\-FACTO|WW\-PROFI|WW\-THRES|BEAMPOS|BIASING|DISCARD|EMFFLUO|GCR\-AMS|GCR\-SPE|ISOMERS|MULSOPT|NOPRINT|PHYSICS|PRPONLY|SCRATCH|SPOTDIR|SPOTPOS|UNKNOWN|DECAYS|DPMJET|EMFCUT|EMFFIX|EMFRAY|ERDUMP|GLOBAL|INEALL|INEPRI|LIMITS|LPBEMF|MYRQMD|NOUSER|SOURCE|PRINT|TITLE|BEAM|FREE|OPEN|RQMD|USER|BME|D\-D|D\-T|EMF|NEW|OLD)\b'
+      scope: keyword.other.card.fluka
+
+    # LASTMAT/LASTPAR/LASTREG sentinels
+    - match: '(?i)\b(?:LASTMAT|LASTPAR|LASTREG)\b'
+      scope: constant.language.last.fluka
+
+    # Numbers, including Fortran D exponents
+    - match: '{number}'
+      scope: constant.numeric.fluka
+
+    # Parenthesized region expressions / Boolean operators used in geometry regions
+    - match: '[()+\-]'
+      scope: keyword.operator.region.fluka

@@ -1,0 +1,8 @@
+{
+    "rulers": [10, 20, 30, 40, 50, 60, 70, 78],
+    "word_wrap": false,
+    "draw_white_space": "all",
+    "translate_tabs_to_spaces": true,
+    "tab_size": 10,
+    "font_options": ["no_ligatures"]
+}

@@ -1,0 +1,6 @@
+<snippet>
+    <content><![CDATA[*...+.KWxx....+....1....+....2....+....3....+....4....+....5....+....6.SDUM...]]></content>
+    <tabTrigger>cc</tabTrigger>
+    <scope>source.fluka</scope>
+    <description>FLUKA fixed-format alignment comment</description>
+</snippet>

@@ -1,0 +1,40 @@
+[
+    {
+        "keys": ["tab"],
+        "command": "fluka_smart_tab",
+        "args": { "mode": "right" },
+        "context": [
+            { "key": "selector", "operator": "equal", "operand": "source.fluka" },
+            { "key": "has_next_field", "operator": "equal", "operand": false },
+            { "key": "auto_complete_visible", "operator": "equal", "operand": false }
+        ]
+    },
+    {
+        "keys": ["shift+tab"],
+        "command": "fluka_smart_tab",
+        "args": { "mode": "left" },
+        "context": [
+            { "key": "selector", "operator": "equal", "operand": "source.fluka" },
+            { "key": "auto_complete_visible", "operator": "equal", "operand": false }
+        ]
+    },
+    {
+        "keys": ["alt+tab"],
+        "command": "fluka_smart_tab",
+        "args": { "mode": "right_eat" },
+        "context": [
+            { "key": "selector", "operator": "equal", "operand": "source.fluka" },
+            { "key": "has_next_field", "operator": "equal", "operand": false },
+            { "key": "auto_complete_visible", "operator": "equal", "operand": false }
+        ]
+    },
+    {
+        "keys": ["alt+shift+tab"],
+        "command": "fluka_smart_tab",
+        "args": { "mode": "left_fill" },
+        "context": [
+            { "key": "selector", "operator": "equal", "operand": "source.fluka" },
+            { "key": "auto_complete_visible", "operator": "equal", "operand": false }
+        ]
+    }
+]

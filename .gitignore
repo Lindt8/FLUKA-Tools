@@ -1,0 +1,47 @@
+# ----------------------
+# macOS system files
+# ----------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon?
+
+# Thumbnails and metadata
+._*
+.Spotlight-V100
+.Trashes
+
+# ----------------------
+# Python cache / build
+# ----------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+
+# Pip / installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# ----------------------
+# PyCharm / JetBrains
+# ----------------------
+.idea/
+*.iml
+
+# ----------------------
+# Jupyter 
+# ----------------------
+.ipynb_checkpoints/
+
